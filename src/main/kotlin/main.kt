@@ -18,7 +18,8 @@ fun main() {
     }
 
     println("Trying to execute command")
-    val t = Runtime.getRuntime().exec("$pythonPath -m timeit -r 10")
+    val t = try { Runtime.getRuntime().exec("$pythonPath -m timeit -r 10") }
+            catch (e: Exception) { println("Error, wrong path"); return }
     val reader = BufferedReader(t.inputStream.reader())
     println(reader.readText())
     println("Execution finished!")
